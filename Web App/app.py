@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-#from fbprophet.serialize import model_to_json, model_from_json
+from fbprophet.serialize import model_to_json, model_from_json
 
 app = Flask(__name__)
 
@@ -18,8 +18,9 @@ def post_req():
         if request.method == "POST":
             country = request.form['country']
             medal = request.form['categories']
-
-            with open('/Data/' + country + '_' + medal + '.json', r) as fin:
+            print(country)
+            with open('Data/' + country + '_' + medal + '.json', 'r') as fin:
+                print(fin)
                 m = model_from_json(json.load(fin))  # Load model
 
                 future = m.make_future_dataframe(periods=365 * 4)
@@ -32,4 +33,4 @@ def post_req():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
