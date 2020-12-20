@@ -1,0 +1,2 @@
+# WinterOlympicHack
+Olympic medals predictor
